@@ -1,9 +1,13 @@
-# Cordova Universal Links Plugin
+# Cordova Web Credentials Plugin
 This Cordova plugin adds support for opening an application from the browser when user clicks on the link. Better known as:
 - [Universal Links on iOS](https://developer.apple.com/library/ios/documentation/General/Conceptual/AppSearch/UniversalLinks.html)
 - [Deep Linking on Android](https://developer.android.com/training/app-indexing/deep-linking.html)
 
 Basically, you can have a single link that will either open your app or your website, if the app isn't installed.
+
+This Cordova plugin also adds support for iOS' [Associated Domains](https://developer.apple.com/documentation/security/password_autofill/setting_up_an_app_s_associated_domains) feature, for password autofill and general iOS trust verification. That's always good, right?
+
+This plugin is based off the work of [flipflopapp](https://github.com/flipflopapp)'s [fork](https://github.com/flipflopapp/cordova-universal-links-plugin) of the original [cordova-universal-links-plugin](https://github.com/nordnet/cordova-universal-links-plugin/blob/master/README.md) (now defunct).
 
 Integration process is simple:
 
@@ -55,7 +59,7 @@ cordova plugin add cordova-universal-links-plugin
 It is also possible to install via repo url directly (**unstable**)
 
 ```sh
-cordova plugin add https://github.com/nordnet/cordova-universal-links-plugin.git
+cordova plugin add https://github.com/SparrowBlaze/cordova-web-credentials-plugin.git
 ```
 
 ### Migrating from previous versions
