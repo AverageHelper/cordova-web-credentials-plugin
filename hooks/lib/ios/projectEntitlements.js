@@ -111,8 +111,15 @@ function generateAssociatedDomainsContent(pluginPreferences) {
   var domainsList = [];
 
   // generate list of host links
-  pluginPreferences.hosts.forEach(function(host) {
-    var link = domainsListEntryForHost(host);
+  pluginPreferences.hosts.ul.forEach(function(host) {
+    var link = universalLinkDomainsListEntryForHost(host);
+    if (domainsList.indexOf(link) == -1) {
+      domainsList.push(link);
+    }
+  });
+
+  pluginPreferences.hosts.wc.forEach(function(host) {
+    var link = webcredentialsLinkDomainsListEntryForHost(host);
     if (domainsList.indexOf(link) == -1) {
       domainsList.push(link);
     }
@@ -127,8 +134,12 @@ function generateAssociatedDomainsContent(pluginPreferences) {
  * @param {Object} host - host entry
  * @return {String} record
  */
-function domainsListEntryForHost(host) {
+function universalLinkDomainsListEntryForHost(host) {
   return 'applinks:' + host.name;
+}
+
+function webcredentialsLinkDomainsListEntryForHost(host) {
+  return 'webcredentials:' + host.name;
 }
 
 // endregion

@@ -16,7 +16,6 @@ Additional documentation regarding apple-app-site-association file can be found 
 - https://developer.apple.com/library/ios/documentation/Security/Reference/SharedWebCredentialsRef/index.html#//apple_ref/doc/uid/TP40014989
 */
 
-
 var path = require('path');
 var mkpath = require('mkpath');
 var fs = require('fs');
@@ -67,10 +66,16 @@ function createNewAssociationFiles(pluginPreferences) {
     teamId = IOS_TEAM_ID;
   }
 
-  pluginPreferences.hosts.forEach(function(host) {
+  pluginPreferences.hosts.ul.forEach(function(host) {
     var content = generateFileContentForHost(host, teamId);
     saveContentToFile(host.name, content);
   });
+
+  // May not be necessary. Primarily used for applinks association.
+  // pluginPreferences.hosts.wc.forEach(function(host) {
+  //   var content = generateFileContentForHost(host, teamId);
+  //   saveContentToFile(hosts.name, content);
+  // });
 }
 
 /**
@@ -90,12 +95,14 @@ function generateFileContentForHost(host, teamId) {
   }
 
   return {
-    "applinks": {
-      "apps": [],
-      "details": [{
-        "appID": appID,
-        "paths": paths
-      }]
+    applinks: {
+      apps: [],
+      details: [
+        {
+          appID: appID,
+          paths: paths
+        }
+      ]
     }
   };
 }
