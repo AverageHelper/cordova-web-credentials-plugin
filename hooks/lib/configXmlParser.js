@@ -21,7 +21,7 @@ function readPreferences(cordovaContext) {
   // read data from projects root config.xml file
   var configXml = new ConfigXmlHelper(cordovaContext).read();
   if (configXml == null) {
-    console.warn('config.xml not found! Please, check that it exist\'s in your project\'s root directory.');
+    console.warn("config.xml not found! Please, check that it exist's in your project's root directory.");
     return null;
   }
 
@@ -35,15 +35,34 @@ function readPreferences(cordovaContext) {
   var xmlPreferences = ulXmlPreferences[0];
 
   // read hosts
-  var hosts = constructHostsList(xmlPreferences);
+  var ulHosts = constructHostsList(xmlPreferences);
 
   // read ios team ID
   var iosTeamId = getTeamIdPreference(xmlPreferences);
 
-  return {
-    'hosts': hosts,
-    'iosTeamId': iosTeamId
+  var preferences = {
+    hosts: {
+      ul: ulHosts,
+      wc: []
+    },
+    iosTeamId: iosTeamId
   };
+
+  // look for data from the <webcredentials> tag
+  var wcXmlPreferences = configXml.widget['webcredentials'];
+  if (wcXmlPreferences == null || wcXmlPreferences.length == 0) {
+    console.warn('<webcredentials> tag is not set in the config.xml. Webcredentials plugin is not going to work.');
+    return preferences;
+  }
+
+  wcPreferences = wcXmlPreferences[0];
+
+  // read hosts
+  var wcHosts = constructHostsList(wcPreferences);
+
+  preferences.hosts.wc = wcHosts;
+
+  return preferences;
 }
 
 // endregion
@@ -91,10 +110,10 @@ function constructHostsList(xmlPreferences) {
  */
 function constructHostEntry(xmlElement) {
   var host = {
-      scheme: DEFAULT_SCHEME,
-      name: '',
-      paths: []
-    };
+    scheme: DEFAULT_SCHEME,
+    name: '',
+    paths: []
+  };
   var hostProperties = xmlElement['$'];
 
   if (hostProperties == null || hostProperties.length == 0) {

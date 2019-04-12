@@ -33,25 +33,31 @@ function run(cordovaContext) {
   }
 
   // if no host is defined - exit
-  if (pluginPreferences.hosts == null || pluginPreferences.hosts.length == 0) {
+  if (pluginPreferences.hosts == null || pluginPreferences.hosts.ul.length == 0 || pluginPreferences.hosts.wc.length == 0) {
     console.warn('No host is specified in the config.xml. Universal Links plugin is not going to work.');
     return;
   }
 
   platformsList.forEach(function(platform) {
     switch (platform) {
-      case ANDROID:
-        {
-          activateUniversalLinksInAndroid(cordovaContext, pluginPreferences);
-          break;
-        }
-      case IOS:
-        {
-          activateUniversalLinksInIos(cordovaContext, pluginPreferences);
-          break;
-        }
+      case ANDROID: {
+        let preferences = generateUniversalLinksPreferences(pluginPreferences);
+        activateUniversalLinksInAndroid(cordovaContext, preferences);
+        break;
+      }
+      case IOS: {
+        activateUniversalLinksInIos(cordovaContext, pluginPreferences);
+        break;
+      }
     }
   });
+}
+
+function generateUniversalLinksPreferences(pluginPreferences) {
+  return {
+    hosts: pluginPreferences.hosts.ul,
+    iosTeamId: pluginPreferences.iosTeamId
+  };
 }
 
 /**
