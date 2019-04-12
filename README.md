@@ -49,11 +49,11 @@ It is important not only to redirect users to your app from the web, but also pr
   - [How links handled in Safari](#how-links-handled-in-safari)
 - [Additional documentation links](#additional-documentation-links)
 
-### Installation
-This requires cordova 5.0+ (current stable 1.2.1)
+### Installation (WIP)
+This requires cordova 5.0+ and Xcode 7+ (installs our current stable 1.0)
 
 ```sh
-cordova plugin add cordova-universal-links-plugin
+cordova plugin add cordova-web-credentials-plugin
 ```
 
 It is also possible to install via repo url directly (**unstable**)
@@ -64,74 +64,7 @@ cordova plugin add https://github.com/SparrowBlaze/cordova-web-credentials-plugi
 
 ### Migrating from previous versions
 
-##### From v1.0.x to v1.1.x
-
-In v1.0.x to capture universal links events you had to subscribe on them like so:
-```js
-document.addEventListener('eventName', didLaunchAppFromLink, false);
-
-function didLaunchAppFromLink(event) {
-  var urlData = event.detail;
-  console.log('Did launch application from the link: ' + urlData.url);
-  // do some work
-}
-```
-And there were some problems with the timing: event could be fired long before you were subscribing to it.
-
-From v1.1.0 it changes to the familiar Cordova style:
-```js
-var app = {
-  // Application Constructor
-  initialize: function() {
-    this.bindEvents();
-  },
-
-  // Bind Event Listeners
-  bindEvents: function() {
-    document.addEventListener('deviceready', this.onDeviceReady, false);
-  },
-
-  // deviceready Event Handler
-  onDeviceReady: function() {
-    universalLinks.subscribe('eventName', app.didLaunchAppFromLink);
-  },
-
-  didLaunchAppFromLink: function(eventData) {
-    alert('Did launch application from the link: ' + eventData.url);
-  }
-};
-
-app.initialize();
-```
-
-As you can see, now you subscribe to event via `universalLinks` module when `deviceready` is fired. Actually, you can subscribe to it in any place of your application: plugin stores the event internally and dispatches it when there is a subscriber for it.
-
-Also, in v1.0.x `ul_didLaunchAppFromLink` was used as a default event name. From v1.1.0 you can just do like that:
-```js
-universalLinks.subscribe(null, callbackFunction);
-```
-If you didn't specify event name for the `path` or `host` - in the JS code just pass `null` as event name. But just for readability you might want to specify it `config.xml`.
-
-### How to build plugin in Xcode 6
-
-If you are still using Xcode 6 and there is no way for you to upgrade right now to Xcode 7 - follow the instructions below in order to use this plugin.
-
-1. Clone the `xcode6-support` branch of the plugin from the GitHub:
-
-  ```sh
-  mkdir /Workspace/Mobile/CordovaPlugins
-  cd /Workspace/Mobile/CordovaPlugins
-  git clone -b xcode6-support https://github.com/nordnet/cordova-universal-links-plugin.git
-  ```
-
-2. Go to your applications project and add plugin from the cloned source:
-
-  ```sh
-  cd /Workspace/Mobile/CoolApp
-  cordova plugin add /Workspace/Mobile/CordovaPlugins/cordova-universal-links-plugin/
-  ```
-
-Now you can build your project in Xcode 6.
+See [cordova-universal-links-plugin](https://github.com/nordnet/cordova-universal-links-plugin/blob/master/README.md#migrating-from-previous-versions) for details on migrating between versions of that plugin.
 
 ### Cordova config preferences
 
@@ -146,6 +79,8 @@ Those preferences are specified inside the `<universal-links>` block. For exampl
     </host>
 </universal-links>
 ```
+
+**TO DO: Add a note about configuring associated domains**
 
 In it you define hosts and paths that application should handle. You can have as many hosts and paths as you like.
 
