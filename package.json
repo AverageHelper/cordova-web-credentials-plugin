@@ -1,9 +1,9 @@
 {
-  "name": "cordova-universal-links-plugin",
-  "version": "1.2.1",
-  "description": "Cordova plugin to add in your application support for Universal Links (iOS 9) and Deep Links (Android). Basically, open application through the link in the browser.",
+  "name": "cordova-web-credentials-plugin",
+  "version": "1.0.0",
+  "description": "Cordova plugin to add in your application support for Universal Links (iOS 9), Deep Links (Android), and Shared Web Credentials (iOS 11).",
   "cordova": {
-    "id": "cordova-universal-links-plugin",
+    "id": "cordova-web-credentials-plugin",
     "platforms": [
       "ios",
       "android"
@@ -11,13 +11,15 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/nordnet/cordova-universal-links-plugin.git"
+    "url": "git+https://github.com/SparrowBlaze/cordova-web-credentials-plugin.git"
   },
   "keywords": [
     "cordova",
     "links",
     "universal",
     "deep links",
+    "shared web credentials",
+    "webcredentials",
     "universal links",
     "ecosystem:cordova",
     "cordova-ios",
@@ -45,7 +47,7 @@
   "author": "Nikolay Demyankov for Nordnet Bank AB",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/nordnet/cordova-universal-links-plugin/issues"
+    "url": "https://github.com/SparrowBlaze/cordova-web-credentials-plugin/issues"
   },
-  "homepage": "https://github.com/nordnet/cordova-universal-links-plugin#readme"
+  "homepage": "https://github.com/SparrowBlaze/cordova-web-credentials-plugin#readme"
 }
